@@ -1,10 +1,16 @@
 package handlers
 
 import (
-	"fmt"
+	"RecipeKeeper/data"
+	"html/template"
+	"log"
 	"net/http"
 )
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
+	tmpl, err := template.ParseFiles("frontend/homePage.html")
+	if err != nil {
+		log.Fatal(err, "ERROR: problem with home file path")
+	}
+	tmpl.Execute(w, data.AllRecipes)
 }
